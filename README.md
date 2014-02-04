@@ -1,3 +1,8 @@
+linux-go-dash
+=============
+Forked from linux-dash to provide a golang based back end.
+
+
 linux-dash
 ==========
 
