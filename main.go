@@ -20,6 +20,7 @@ func main() {
 	http.HandleFunc("/sh/hostname", hostnameHandler)
 	http.HandleFunc("/sh/uptime", uptimeHandler)
 	http.HandleFunc("/sh/mem", memHandler)
+	http.HandleFunc("/sh/loadavg", loadavgHandler)
 	http.HandleFunc("/sh/numberofcores", numberOfCoresHandler)
 	http.ListenAndServe(":8080", nil)
 }
@@ -57,6 +58,22 @@ func memHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	enc := json.NewEncoder(w)
+	enc.Encode(response)
+}
+
+func loadavgHandler(w http.ResponseWriter, r *http.Request) {
+
+	enc := json.NewEncoder(w)
+	loadavg := cpu.LoadAvg()
+	numCores := cpu.Count()
+	var response = map[string]string{
+		"OneMinute":      strconv.FormatFloat(float64(loadavg.OneMinute), 'f', 0, 32),
+		"FiveMinute":     strconv.FormatFloat(float64(loadavg.FiveMinute), 'f', 0, 32),
+		"FifteenMinute":  strconv.FormatFloat(float64(loadavg.FifteenMinute), 'f', 0, 32),
+		"OneMinute%":     strconv.FormatFloat(float64(loadavg.OneMinute)*100/float64(numCores), 'f', 0, 32),
+		"FiveMinute%":    strconv.FormatFloat(float64(loadavg.FiveMinute)*100/float64(numCores), 'f', 0, 32),
+		"FifteenMinute%": strconv.FormatFloat(float64(loadavg.FifteenMinute)*100/float64(numCores), 'f', 0, 32),
+	}
 	enc.Encode(response)
 }
 

@@ -254,13 +254,13 @@ dashboard.getIspeed = function() {
 }
 
 dashboard.getLoadAverage = function() {
-    $.get("sh/loadavg.php", function(data) {
-        $("#cpu-1min").text(data[0][0]);
-        $("#cpu-5min").text(data[1][0]);
-        $("#cpu-15min").text(data[2][0]);
-        $("#cpu-1min-per").text(data[0][1]);
-        $("#cpu-5min-per").text(data[1][1]);
-        $("#cpu-15min-per").text(data[2][1]);
+    $.get("sh/loadavg", function(data) {
+        $("#cpu-1min").text(data["OneMinute"]);
+        $("#cpu-5min").text(data["FiveMinute"]);
+        $("#cpu-15min").text(data["FifteenMinute"]);
+        $("#cpu-1min-per").text(data["OneMinute%"]);
+        $("#cpu-5min-per").text(data["FiveMinute%"]);
+        $("#cpu-15min-per").text(data["FifteenMinute%"]);
     }, "json");
 }
 
