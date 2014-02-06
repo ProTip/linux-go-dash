@@ -50,13 +50,14 @@ func memHandler(w http.ResponseWriter, r *http.Request) {
 	used := mem.GetUsedMB()
 	free := mem.GetFreeMB()
 
-	memInfo := make([]string, 0, 0)
-	memInfo = append(memInfo, "Mem:")
-	memInfo = append(memInfo, strconv.Itoa(total))
-	memInfo = append(memInfo, strconv.Itoa(used))
-	memInfo = append(memInfo, strconv.Itoa(free))
+	var response = map[string]string{
+		"Total": strconv.Itoa(total),
+		"Used":  strconv.Itoa(used),
+		"Free":  strconv.Itoa(free),
+	}
+
 	enc := json.NewEncoder(w)
-	enc.Encode(memInfo)
+	enc.Encode(response)
 }
 
 func numberOfCoresHandler(w http.ResponseWriter, r *http.Request) {

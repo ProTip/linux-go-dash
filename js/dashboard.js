@@ -141,14 +141,14 @@ dashboard.getOnline = function() {
 }
 
 dashboard.getRam = function() {
-    $.get("sh/mem.php", function(data) {
-        var ram_total = data[1];
-        var ram_used = parseInt((data[2] / ram_total) * 100, 10);
-        var ram_free = parseInt((data[3] / ram_total) * 100, 10);
+    $.get("sh/mem", function(data) {
+        var ram_total = data["Total"];
+        var ram_used = parseInt((data["Used"] / ram_total) * 100, 10);
+        var ram_free = parseInt((data["Free"] / ram_total) * 100, 10);
 
         $("#ram-total").text(ram_total);
-        $("#ram-used").text(data[2]);
-        $("#ram-free").text(data[3]);
+        $("#ram-used").text(data["Used"]);
+        $("#ram-free").text(data["Free"]);
 
         $("#ram-free-per").text(ram_free);
         $("#ram-used-per").text(ram_used);
@@ -207,9 +207,9 @@ dashboard.getWhereIs = function() {
 }
 
 dashboard.getOs = function() {
-    generate_os_data("sh/issue.php", "#os-info");
-    generate_os_data("sh/hostname.php", "#os-hostname");
-    generate_os_data("sh/uptime.php", "#os-uptime");
+    generate_os_data("sh/issue", "#os-info");
+    generate_os_data("sh/hostname", "#os-hostname");
+    generate_os_data("sh/uptime", "#os-uptime");
 }
 
 dashboard.getIp = function() {
@@ -265,7 +265,7 @@ dashboard.getLoadAverage = function() {
 }
 
 dashboard.getNumberOfCores = function() {
-    generate_os_data("sh/numberofcores.php", "#core-number");
+    generate_os_data("sh/numberofcores", "#core-number");
 }
 
 
