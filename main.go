@@ -4,9 +4,10 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	_ "fmt"
+	"fmt"
 	"github.com/protip/linux-go-dash/util/cpu"
 	"github.com/protip/linux-go-dash/util/mem"
+	"github.com/protip/linux-go-dash/util/system"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -43,10 +44,14 @@ func hostnameHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func uptimeHandler(w http.ResponseWriter, r *http.Request) {
-
+	upTime := system.GetUpTime()
+	response := fmt.Sprint(upTime.UpTime)
+	enc := json.NewEncoder(w)
+	enc.Encode(response)
 }
 
 func memHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	total := mem.GetMB(mem.MemTotal)
 	used := mem.GetUsedMB()
 	free := mem.GetFreeMB()
@@ -59,6 +64,7 @@ func memHandler(w http.ResponseWriter, r *http.Request) {
 
 	enc := json.NewEncoder(w)
 	enc.Encode(response)
+	//w.WriteHeader(200)
 }
 
 func loadavgHandler(w http.ResponseWriter, r *http.Request) {
