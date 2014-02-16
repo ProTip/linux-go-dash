@@ -1,6 +1,22 @@
 linux-go-dash
 =============
-Forked from linux-dash to provide a golang based back end.
+Forked from linux-dash to provide a golang based back end.  The primary goals for this fork are:
+
+<ul>
+ <li>Produce a lightweight Go backend
+    <ul>
+      <li>No language platform requirements</li>
+      <li>Compiled for speed</li>
+      <li>Massage into a general purpose linux info REST service</li>
+    </ul>
+ </li>
+ <li>Produce Go linux information package
+   <ul>
+     <li>Retrieve information from running linux system</li>
+     <li>Avoids forking at all costs: collect info from proc, sys, and kernel sockets</li>
+   </ul>
+ </li>
+</ul>
 
 
 linux-dash
